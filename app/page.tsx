@@ -1,2 +1,66 @@
-import TrailerDemo from "@/components/TrailerDemo";
-export default function Home(){return <main><header className="topbar"><div className="logo"><span className="logoMark">AM</span><span>Addis<span>Movie</span></span></div><nav><a href="#discover">Discover</a><a href="#trailers">Trailers</a><a href="#about">About</a></nav><button className="pill">Sign in</button></header><section className="hero"><div className="heroCopy"><span className="eyebrow">ADDIS MOVIE · ETHIOPIA</span><h1>Stories that feel<br/><em>close to home.</em></h1><p>Discover Ethiopian cinema, series and the trailers worth watching — in one calm, cinematic place.</p><div className="heroActions"><a className="primary" href="#trailers">Watch trailers</a><a className="secondary" href="#discover">Explore stories</a></div></div><div className="heroArt"><div className="sun"/><div className="frame">ADDIS<br/>MOVIE</div></div></section><section id="trailers" className="section"><div className="sectionHead"><div><span className="eyebrow">IN-APP PLAYBACK</span><h2>Trailer night.</h2></div><p>Official YouTube playback stays inside AddisMovie. No app switching. No external browser.</p></div><TrailerDemo/></section><section id="discover" className="section compact"><span className="eyebrow">DISCOVER</span><h2>Made for Ethiopian audiences.</h2><div className="cards"><article><b>Local stories</b><p>Find films and series connected to Ethiopia and its many languages.</p></article><article><b>Cinematic trailers</b><p>Open a trailer and keep the experience entirely inside the app.</p></article><article><b>Mobile first</b><p>Designed for portrait phones, landscape playback and fast navigation.</p></article></div></section><footer id="about">© {new Date().getFullYear()} AddisMovie</footer></main>}
+import { EthiopianWatchBanner } from "@/components/EthiopianWatchBanner";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
+import { Hero } from "@/components/Hero";
+import { MediaRow } from "@/components/MediaRow";
+import { getHomeData } from "@/lib/tmdb";
+
+export default async function HomePage() {
+  const data = await getHomeData();
+
+  return (
+    <main>
+      <Header />
+      <Hero item={data.hero} />
+      <div className="catalog pageWidth">
+        {data.demoMode ? (
+          <div className="demoNotice">
+            <span>Demo catalog</span>
+            Add <code>TMDB_READ_TOKEN</code> to <code>.env.local</code> to load live movie data.
+          </div>
+        ) : null}
+
+        <MediaRow
+          id="trending"
+          eyebrow="What everyone is watching"
+          title="Trending now"
+          items={data.trending}
+        />
+        <MediaRow
+          id="ethiopian"
+          eyebrow="Stories from home"
+          title="Ethiopian cinema"
+          description="A dedicated shelf for films connected to Ethiopia, its languages and its people."
+          items={data.ethiopianStories}
+        />
+        <EthiopianWatchBanner />
+        <MediaRow
+          id="movies"
+          eyebrow="Big screen energy"
+          title="Popular movies"
+          items={data.popularMovies}
+        />
+        <section className="editorialBanner">
+          <div>
+            <span className="sectionEyebrow">Curated weekly</span>
+            <h2>One excellent story.<br />Every Friday.</h2>
+            <p>Our editorial pick highlights unforgettable filmmaking from Ethiopia, Africa and the world.</p>
+          </div>
+          <div className="editorialMark" aria-hidden="true">AM</div>
+        </section>
+        <MediaRow
+          id="series"
+          eyebrow="Keep watching"
+          title="Popular series"
+          items={data.popularTV}
+        />
+        <MediaRow
+          eyebrow="Critically acclaimed"
+          title="Top rated"
+          items={data.topRated}
+        />
+      </div>
+      <Footer />
+    </main>
+  );
+}
