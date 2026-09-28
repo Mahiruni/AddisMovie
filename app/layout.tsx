@@ -1,4 +1,25 @@
 import type { Metadata } from "next";
+import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
-export const metadata: Metadata={title:"AddisMovie — Ethiopian stories, anywhere",description:"A cinematic home for Ethiopian film, series and trailers."};
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}</body></html>}
+import "./details.css";
+import "./ethiopian-streams.css";
+import "./internal-player.css";
+import "./player-hardening.css";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
+
+export const metadata: Metadata = {
+  title: "AddisMovie — Discover What to Watch",
+  description:
+    "A premium movie and TV discovery experience with Ethiopian stories, authorized publisher streams, licensed media and lawful provider availability.",
+  metadataBase: new URL("https://addismovie.example"),
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en">
+      <body className={`${inter.variable} ${manrope.variable}`}>{children}</body>
+    </html>
+  );
+}
