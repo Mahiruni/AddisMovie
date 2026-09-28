@@ -12,7 +12,7 @@ type YTPlayer={
 };
 declare global{interface Window{YT?:{Player:new(id:string,opts:Record<string,unknown>)=>YTPlayer};onYouTubeIframeAPIReady?:()=>void}}
 
-const qualityNames:Record<string,string>={highres:"1080p+",hd1080:"1080p",hd720:"720p",large:"480p",medium:"360p",small:"240p,tiny:"144p",auto:"Auto"};
+const qualityNames:Record<string,string>={highres:"1080p+",hd1080:"1080p",hd720:"720p",large:"480p",medium:"360p",small:"240p",tiny:"144p",auto:"Auto"};
 
 export default function YouTubeTrailerPlayer({videoId,title,thumbnail,onClose}:{videoId:string;title:string;thumbnail?:string;onClose?:()=>void}){
  const mountRef=useRef<HTMLDivElement>(null),playerRef=useRef<YTPlayer|null>(null),timerRef=useRef<ReturnType<typeof setInterval>|null>(null);
