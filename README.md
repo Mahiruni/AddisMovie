@@ -122,3 +122,7 @@ This product uses the TMDB API for movie and television metadata. It is not endo
 Watch-provider availability is supplied by TMDB using JustWatch data. YouTube playback remains controlled by each publisher and YouTube.
 
 <!-- production redeploy verification: 2026-07-29 -->
+
+
+## Migration status
+The AddisMovie codebase has been migrated into this repository, including Ethiopian cinema discovery, authorized media infrastructure, and the in-app YouTube trailer player.
