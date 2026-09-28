@@ -1,0 +1,4 @@
+"use client";
+import {useState} from "react";
+import YouTubeTrailerPlayer from "./YouTubeTrailerPlayer";
+export default function TrailerDemo(){const [open,setOpen]=useState(false);const videoId="dQw4w9WgXcQ";return <><button className="demoTrailer" onClick={()=>setOpen(true)}><div className="demoPoster"><span>AM</span><b>Official trailer</b><i>PLAY IN ADDISMOVIE</i></div><div><span className="eyebrow">FEATURED TRAILER</span><h3>Play without leaving AddisMovie.</h3><p>The player uses YouTube’s official IFrame API and stays embedded in the app.</p></div></button>{open?<div className="trailerModal" role="dialog" aria-modal="true" aria-label="Trailer player"><YouTubeTrailerPlayer videoId={videoId} title="AddisMovie featured trailer" thumbnail={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`} onClose={()=>setOpen(false)}/></div>:null}</>}
