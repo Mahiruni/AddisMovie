@@ -3,14 +3,11 @@
 import {useCallback,useEffect,useRef,useState} from "react";
 import {AlertCircle,Maximize,Pause,Play,RotateCcw,Volume2,VolumeX,X} from "lucide-react";
 
-type PlayerState=0|1|2|3|5;
-type YTPlayer={
- playVideo:()=>void;pauseVideo:()=>void;seekTo:(s:number,allowSeekAhead:boolean)=>void;
- setVolume:(v:number)=>void;mute:()=>void;unMute:()=>void;getCurrentTime:()=>number;
- getDuration:()=>number;getPlayerState:()=>PlayerState;getPlaybackQuality?:()=>string;
- setPlaybackQuality?:(q:string)=>void;getAvailableQualityLevels?:()=>string[];destroy:()=>void;
+type YTPlayer = InstanceType<NonNullable<Window["YT"]>["Player"]> & {
+ getPlaybackQuality?:()=>string;
+ setPlaybackQuality?:(q:string)=>void;
+ getAvailableQualityLevels?:()=>string[];
 };
-declare global{interface Window{YT?:{Player:new(id:string,opts:Record<string,unknown>)=>YTPlayer};onYouTubeIframeAPIReady?:()=>void}}
 
 const qualityNames:Record<string,string>={highres:"1080p+",hd1080:"1080p",hd720:"720p",large:"480p",medium:"360p",small:"240p",tiny:"144p",auto:"Auto"};
 
@@ -19,8 +16,7 @@ export default function YouTubeTrailerPlayer({videoId,title,thumbnail,onClose}:{
  const [ready,setReady]=useState(false),[playing,setPlaying]=useState(false),[error,setError]=useState(false),[online,setOnline]=useState(true),[started,setStarted]=useState(false),[muted,setMuted]=useState(true),[volume,setVolume]=useState(75),[progress,setProgress]=useState(0),[duration,setDuration]=useState(0),[quality,setQuality]=useState("auto"),[qualities,setQualities]=useState<string[]>([]);
 
  const start=useCallback(()=>{if(!window.YT?.Player||!mountRef.current)return;
-   const id="yt-trailer-"+Math.random().toString(36).slice(2);mountRef.current.id=id;
-   playerRef.current=new window.YT.Player(id,{videoId,playerVars:{autoplay:0,controls:1,playsinline:1,rel:0,modestbranding:1,iv_load_policy:3,fs:1,disablekb:0,origin:window.location.origin},
+   playerRef.current=new window.YT.Player(mountRef.current,{width:"100%",height:"100%",videoId,playerVars:{autoplay:0,controls:1,playsinline:1,rel:0,modestbranding:1,iv_load_policy:3,fs:1,disablekb:0,origin:window.location.origin},
      events:{
        onReady:(e:{target:YTPlayer})=>{const p=e.target;playerRef.current=p;setReady(true);setDuration(p.getDuration());const qs=p.getAvailableQualityLevels?.()||[];setQualities(qs);setQuality(p.getPlaybackQuality?.()||"auto")},
        onStateChange:(e:{data:number})=>{setPlaying(e.data===1);if(e.data===1)setStarted(true)},
