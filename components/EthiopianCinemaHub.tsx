@@ -81,15 +81,14 @@ export function EthiopianCinemaHub({
         <div className="pageWidth ethiopianHeroInner">
           <div className="ethiopianHeroCopy">
             <span className="sourceBadge">
-              <ShieldCheck size={14} /> Rights-checked playback
+              <ShieldCheck size={14} /> Official publishers
             </span>
-            <span className="sectionEyebrow">AddisMovie Ethiopian cinema</span>
-            <h1>One player.<br />Stories made at home.</h1>
+            <span className="sectionEyebrow">The Ethiopian collection</span>
+            <h1>Stories that<br />stay with you.</h1>
             <p>
-              Every Ethiopian movie now plays through the AddisMovie interface. Licensed HLS
-              and MP4 titles use the native player; approved YouTube publishers use the official
-              IFrame API inside the same branded experience.
+              Discover the soul of Ethiopian cinema. Explore stories from home, brought together in one cinematic experience.
             </p>
+            <a className="primaryButton cinemaExplore" href="#cinema-library">Explore movies <Film size={17} /></a>
             <div className="ethiopianHeroStats">
               <span><Film size={16} /> Full films only</span>
               <span><Radio size={16} /> Automatic publisher sync</span>
@@ -100,14 +99,13 @@ export function EthiopianCinemaHub({
         </div>
       </section>
 
-      <section className="ethiopianPlayerSection pageWidth">
+      <section id="cinema-library" className="ethiopianPlayerSection pageWidth">
         <div className="ethiopianSectionHeading">
           <div>
-            <span className="sectionEyebrow">AddisMovie internal playback</span>
-            <h2>Watch without leaving AddisMovie</h2>
+            <span className="sectionEyebrow">The screening room</span>
+            <h2>Find your next story</h2>
             <p>
-              Choose the next title from the left queue. Playback, search, fullscreen, volume,
-              and progress controls use the AddisMovie visual system.
+              Browse the collection, choose a film and settle into the screening room.
             </p>
           </div>
           <span className="publisherLink staticPublisherLabel">
